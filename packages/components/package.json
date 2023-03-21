@@ -14,6 +14,9 @@
       "require": "./dist/index.cjs"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc && npm run bundle && cp dist/index.d.ts dist/index.d.cts",
     "bundle": "tsup src/index.ts --format esm,cjs --dts --minify terser --treeshake"
