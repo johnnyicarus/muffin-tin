@@ -8,26 +8,31 @@ import {
 import { BaseComponentSignature, HTMLProperties } from './types';
 
 export type BaseComponentProps<
-  BaseSprinkles,
+  Sprinkles,
   HTMLAttributeExceptions extends string,
 > = BaseComponentSignature &
-  BaseSprinkles &
+  Sprinkles &
   HTMLProperties<HTMLAttributeExceptions>;
 
+interface CreateBaseComponentParams<SprinklesFn extends SprinklesFnBase> {
+  sprinklesFn: SprinklesFn;
+  defaultClassName?: string;
+  displayName?: string;
+}
+
 export function createBaseComponent<
-  SprinklesFn extends SprinklesFnBase,
-  BaseSprinkles,
+  SprinklesFn extends SprinklesFnBase, // We can derive this from sprinklesFn?
   HTMLAttributeExceptions extends string,
 >({
   sprinklesFn,
   defaultClassName,
-}: {
-  sprinklesFn: SprinklesFn;
-  defaultClassName?: string;
-}) {
+  displayName,
+}: CreateBaseComponentParams<SprinklesFn>) {
+  type Sprinkles = Parameters<typeof sprinklesFn>[0];
+
   const Box = forwardRef<
     HTMLElement,
-    BaseComponentProps<BaseSprinkles, HTMLAttributeExceptions>
+    BaseComponentProps<Sprinkles, HTMLAttributeExceptions>
   >(
     (
       {
@@ -35,7 +40,7 @@ export function createBaseComponent<
         children,
         className,
         ...rest
-      }: BaseComponentProps<BaseSprinkles, HTMLAttributeExceptions>,
+      }: BaseComponentProps<Sprinkles, HTMLAttributeExceptions>,
       ref,
     ) => {
       const { sprinkleProps, otherProps } = extractAtomsFromProps(rest, [
@@ -58,7 +63,7 @@ export function createBaseComponent<
     },
   );
 
-  Box.displayName = 'BaseComponent';
+  Box.displayName = displayName || 'MuffinTinBaseComponent';
 
   return Box;
 }

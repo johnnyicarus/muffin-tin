@@ -1,6 +1,6 @@
 import { composeClassNames } from './composeClassNames';
-import { createBaseComponent } from './createBaseComponent';
-import { createComponent } from './createComponent';
+import { createBaseComponent, BaseComponentProps } from './createBaseComponent';
+import { createComponent, ComponentProps } from './createComponent';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
 
 export {
@@ -9,3 +9,4 @@ export {
   createComponent,
   extractAtomsFromProps,
 };
+export type { BaseComponentProps, ComponentProps };
