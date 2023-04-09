@@ -1,6 +1,6 @@
-# @muffin-tin/components (1.0.0-alpha.1)
+# @muffin-tin/components (1.0.0-alpha)
 
-_Utilities for building [React](https://react.dev) design component libraries with [vanilla-extract](https://vanilla-extract.style/)_
+Utilities for building [React](https://react.dev) design component libraries with [vanilla-extract](https://vanilla-extract.style/)
 
 _This package is still in alpha, do not use in production_
 
@@ -16,13 +16,13 @@ npm install @muffin-tin/components
 
 ## Prerequisites
 
-Latest `React` and `vanilla-extract` (+ `Sprinkles`)
+Latest `React (18.2)`. You are expected to pass a `Sprinkles`-function from `vanilla-extract` to the component to enable its style props, but technically the package does not depend on `vanilla-extract` – and you _could_ pass a function from a wholly different source if its signature is similar enough (check the types to learn more).
 
 ---
 
 ## Contents
 
-Contains the following helpers that to kick-start building component libraries.
+Contains the following helpers to kick-start building component libraries.
 
 - `createBaseComponent`: A generator function for a fundamental _Box_ Component, must be supplied with a [Sprinkles](https://vanilla-extract.style/documentation/packages/sprinkles/)-Function and optionally a class for default styling. Customize its types by passing which HTML attributes you don't not want consumers to use.
 
