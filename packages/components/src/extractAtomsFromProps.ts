@@ -1,20 +1,17 @@
-export interface SprinklesFnBase {
-  (...args: any): string;
-  properties: Set<string>;
-}
+import { SprinklesFnBase } from './types';
 
-export function extractAtomsFromProps<SprinklesFn extends SprinklesFnBase>(
-  props: any,
-  sprinklesFns: SprinklesFn[],
-) {
-  let sprinkleProps: Record<string, unknown> = {};
-  let otherProps: Record<string, unknown> = {};
+export function extractAtomsFromProps<
+  NSV extends Record<string, unknown>,
+  SV extends Record<string, unknown>,
+>(props: SV & NSV, sprinklesFns: SprinklesFnBase[]) {
+  let sprinkleProps = {} as SV;
+  let otherProps = {} as NSV;
 
   for (const key in props) {
     if (sprinklesFns.some((sprinkleFn) => sprinkleFn.properties.has(key))) {
-      sprinkleProps[key] = props[key];
+      sprinkleProps[key as keyof SV] = props[key as keyof SV];
     } else {
-      otherProps[key] = props[key];
+      otherProps[key as keyof NSV] = props[key as keyof NSV];
     }
   }
 

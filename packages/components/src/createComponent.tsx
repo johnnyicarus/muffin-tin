@@ -2,10 +2,8 @@ import { forwardRef, ForwardRefExoticComponent } from 'react';
 
 import { composeClassNames } from './composeClassNames';
 import { BaseComponentProps } from './createBaseComponent';
-import {
-  extractAtomsFromProps,
-  SprinklesFnBase,
-} from './extractAtomsFromProps';
+import { extractAtomsFromProps } from './extractAtomsFromProps';
+import { SprinklesFnBase } from './types';
 
 export type ComponentProps<
   Sprinkles,
@@ -54,9 +52,14 @@ export function createComponent<
       }: ComponentProps<Sprinkles, HTMLAttributeExceptions, BaseSprinkles>,
       ref,
     ) => {
-      const { sprinkleProps, otherProps } = extractAtomsFromProps(rest, [
-        sprinklesFn,
-      ]);
+      type Rest = Omit<
+        BaseComponentProps<BaseSprinkles, HTMLAttributeExceptions>,
+        'className'
+      >;
+      const { sprinkleProps, otherProps } = extractAtomsFromProps<
+        Rest,
+        Sprinkles
+      >(rest, [sprinklesFn]);
 
       return (
         <BaseComponent

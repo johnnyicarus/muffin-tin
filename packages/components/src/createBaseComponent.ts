@@ -1,11 +1,12 @@
 import { createElement, forwardRef } from 'react';
 
 import { composeClassNames } from './composeClassNames';
+import { extractAtomsFromProps } from './extractAtomsFromProps';
 import {
-  extractAtomsFromProps,
+  BaseComponentSignature,
+  HTMLProperties,
   SprinklesFnBase,
-} from './extractAtomsFromProps';
-import { BaseComponentSignature, HTMLProperties } from './types';
+} from './types';
 
 export type BaseComponentProps<
   Sprinkles,
@@ -43,9 +44,13 @@ export function createBaseComponent<
       }: BaseComponentProps<Sprinkles, HTMLAttributeExceptions>,
       ref,
     ) => {
-      const { sprinkleProps, otherProps } = extractAtomsFromProps(rest, [
-        sprinklesFn,
-      ]);
+      const { sprinkleProps, otherProps } = extractAtomsFromProps<
+        Omit<
+          BaseComponentSignature & HTMLProperties<HTMLAttributeExceptions>,
+          'as' | 'children' | 'className'
+        >,
+        Sprinkles
+      >(rest, [sprinklesFn]);
 
       return createElement(
         as,

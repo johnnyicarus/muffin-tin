@@ -10,3 +10,8 @@ export type HTMLProperties<HTMLAttributeExceptions extends string> = Omit<
   AllHTMLAttributes<HTMLElement>,
   HTMLAttributeExceptions
 >;
+
+export interface SprinklesFnBase {
+  (...args: any): string;
+  properties: Set<string>;
+}
