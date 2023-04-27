@@ -1,10 +1,10 @@
-import { AllHTMLAttributes, ReactNode } from 'react';
+import { type AllHTMLAttributes, type ReactNode } from 'react';
 
-export type BaseComponentSignature = {
+export interface BaseComponentSignature {
   as?: keyof JSX.IntrinsicElements;
   children?: ReactNode;
   className?: string;
-};
+}
 
 export type HTMLProperties<HTMLAttributeExceptions extends string> = Omit<
   AllHTMLAttributes<HTMLElement>,

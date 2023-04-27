@@ -3,9 +3,9 @@ import { createElement, forwardRef } from 'react';
 import { composeClassNames } from './composeClassNames';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
 import {
-  BaseComponentSignature,
-  HTMLProperties,
-  SprinklesFnBase,
+  type BaseComponentSignature,
+  type HTMLProperties,
+  type SprinklesFnBase,
 } from './types';
 
 export type BaseComponentProps<

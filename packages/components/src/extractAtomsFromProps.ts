@@ -1,11 +1,11 @@
-import { SprinklesFnBase } from './types';
+import { type SprinklesFnBase } from './types';
 
 export function extractAtomsFromProps<
   NSV extends Record<string, unknown>,
   SV extends Record<string, unknown>,
 >(props: SV & NSV, sprinklesFns: SprinklesFnBase[]) {
-  let sprinkleProps = {} as SV;
-  let otherProps = {} as NSV;
+  const sprinkleProps = {} as SV;
+  const otherProps = {} as NSV;
 
   for (const key in props) {
     if (sprinklesFns.some((sprinkleFn) => sprinkleFn.properties.has(key))) {

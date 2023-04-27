@@ -1,9 +1,8 @@
-import { forwardRef, ForwardRefExoticComponent } from 'react';
+import React, { forwardRef, type ForwardRefExoticComponent } from 'react';
 
 import { composeClassNames } from './composeClassNames';
-import { BaseComponentProps } from './createBaseComponent';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
-import { SprinklesFnBase } from './types';
+import { type SprinklesFnBase } from './types';
 
 export type ComponentProps<Sprinkles, BaseComponentProps> = BaseComponentProps &
   Sprinkles;
