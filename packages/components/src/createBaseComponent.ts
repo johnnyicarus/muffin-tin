@@ -22,7 +22,7 @@ interface CreateBaseComponentParams<SprinklesFn extends SprinklesFnBase> {
 }
 
 export function createBaseComponent<
-  SprinklesFn extends SprinklesFnBase, // We can derive this from sprinklesFn?
+  SprinklesFn extends SprinklesFnBase,
   HTMLAttributeExceptions extends string,
 >({
   sprinklesFn,

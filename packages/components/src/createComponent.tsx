@@ -5,57 +5,39 @@ import { BaseComponentProps } from './createBaseComponent';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
 import { SprinklesFnBase } from './types';
 
-export type ComponentProps<
-  Sprinkles,
-  HTMLAttributeExceptions extends string,
-  BaseSprinkles,
-> = BaseComponentProps<BaseSprinkles, HTMLAttributeExceptions> & Sprinkles;
-
-type BaseComponentType<
-  BaseSprinkles,
-  HTMLAttributeExceptions extends string,
-> = ForwardRefExoticComponent<
-  BaseComponentProps<BaseSprinkles, HTMLAttributeExceptions>
->;
+export type ComponentProps<Sprinkles, BaseComponentProps> = BaseComponentProps &
+  Sprinkles;
 
 interface ComponentParams<
   SprinklesFn extends SprinklesFnBase,
-  HTMLAttributeExceptions extends string,
-  BaseSprinkles,
+  BaseComponentProps,
 > {
   sprinklesFn: SprinklesFn;
-  BaseComponent: BaseComponentType<BaseSprinkles, HTMLAttributeExceptions>;
+  BaseComponent: ForwardRefExoticComponent<BaseComponentProps>;
   defaultClassName?: string;
   displayName?: string;
 }
 
 export function createComponent<
   SprinklesFn extends SprinklesFnBase,
-  HTMLAttributeExceptions extends string,
-  BaseSprinkles,
+  BaseComponentProps,
 >({
   sprinklesFn,
   BaseComponent,
   defaultClassName,
   displayName,
-}: ComponentParams<SprinklesFn, HTMLAttributeExceptions, BaseSprinkles>) {
+}: ComponentParams<SprinklesFn, BaseComponentProps>) {
   type Sprinkles = Parameters<typeof sprinklesFn>[0];
 
   const Box = forwardRef<
     HTMLElement,
-    ComponentProps<Sprinkles, HTMLAttributeExceptions, BaseSprinkles>
+    ComponentProps<Sprinkles, BaseComponentProps>
   >(
     (
-      {
-        className,
-        ...rest
-      }: ComponentProps<Sprinkles, HTMLAttributeExceptions, BaseSprinkles>,
+      { className, ...rest }: ComponentProps<Sprinkles, BaseComponentProps>,
       ref,
     ) => {
-      type Rest = Omit<
-        BaseComponentProps<BaseSprinkles, HTMLAttributeExceptions>,
-        'className'
-      >;
+      type Rest = Omit<BaseComponentProps, 'className'>;
       const { sprinkleProps, otherProps } = extractAtomsFromProps<
         Rest,
         Sprinkles
@@ -69,10 +51,7 @@ export function createComponent<
             sprinklesFn(sprinkleProps),
             className,
           )}
-          {...(otherProps as BaseComponentProps<
-            BaseSprinkles,
-            HTMLAttributeExceptions
-          >)}
+          {...(otherProps as BaseComponentProps)}
         ></BaseComponent>
       );
     },
