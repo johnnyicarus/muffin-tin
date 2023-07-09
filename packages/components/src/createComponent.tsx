@@ -1,7 +1,7 @@
 import React, {
   forwardRef,
-  type ComponentProps,
   type JSXElementConstructor,
+  type ComponentPropsWithoutRef,
 } from 'react';
 
 import { composeClassNames } from './composeClassNames';
@@ -15,7 +15,7 @@ interface ComponentParams<
     | JSXElementConstructor<any>,
 > {
   sprinklesFn: SprinklesFn;
-  BaseComponent: ComponentProps<BaseComponentType>;
+  BaseComponent: BaseComponentType;
   defaultClassName?: string;
   displayName?: string;
 }
@@ -32,10 +32,12 @@ export function createComponent<
   displayName,
 }: ComponentParams<SprinklesFn, BaseComponentType>) {
   type Sprinkles = Parameters<typeof sprinklesFn>[0];
+  type BaseComponentProps = ComponentPropsWithoutRef<BaseComponentType>;
+  type Props = Sprinkles & BaseComponentProps;
 
-  const Box = forwardRef<HTMLElement, Sprinkles & BaseComponentType>(
-    ({ className, ...rest }: Sprinkles & BaseComponentType, ref) => {
-      type Rest = Omit<BaseComponentType, 'className'>;
+  const Box = forwardRef<HTMLElement, Props>(
+    ({ className, ...rest }: Props, ref) => {
+      type Rest = Omit<BaseComponentProps, 'className'>;
       const { sprinkleProps, otherProps } = extractAtomsFromProps<
         Rest,
         Sprinkles
@@ -43,13 +45,13 @@ export function createComponent<
 
       return (
         <BaseComponent
+          {...(otherProps as Sprinkles & Rest)}
           ref={ref}
           className={composeClassNames(
             defaultClassName,
             sprinklesFn(sprinkleProps),
             className,
           )}
-          {...otherProps}
         ></BaseComponent>
       );
     },
