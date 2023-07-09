@@ -1,42 +1,41 @@
-import React, { forwardRef, type ForwardRefExoticComponent } from 'react';
+import React, {
+  forwardRef,
+  type ComponentProps,
+  type JSXElementConstructor,
+} from 'react';
 
 import { composeClassNames } from './composeClassNames';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
 import { type SprinklesFnBase } from './types';
 
-export type ComponentProps<Sprinkles, BaseComponentProps> = BaseComponentProps &
-  Sprinkles;
-
 interface ComponentParams<
   SprinklesFn extends SprinklesFnBase,
-  BaseComponentProps,
+  BaseComponentType extends
+    | keyof JSX.IntrinsicElements
+    | JSXElementConstructor<any>,
 > {
   sprinklesFn: SprinklesFn;
-  BaseComponent: ForwardRefExoticComponent<BaseComponentProps>;
+  BaseComponent: ComponentProps<BaseComponentType>;
   defaultClassName?: string;
   displayName?: string;
 }
 
 export function createComponent<
   SprinklesFn extends SprinklesFnBase,
-  BaseComponentProps,
+  BaseComponentType extends
+    | keyof JSX.IntrinsicElements
+    | JSXElementConstructor<any>,
 >({
   sprinklesFn,
   BaseComponent,
   defaultClassName,
   displayName,
-}: ComponentParams<SprinklesFn, BaseComponentProps>) {
+}: ComponentParams<SprinklesFn, BaseComponentType>) {
   type Sprinkles = Parameters<typeof sprinklesFn>[0];
 
-  const Box = forwardRef<
-    HTMLElement,
-    ComponentProps<Sprinkles, BaseComponentProps>
-  >(
-    (
-      { className, ...rest }: ComponentProps<Sprinkles, BaseComponentProps>,
-      ref,
-    ) => {
-      type Rest = Omit<BaseComponentProps, 'className'>;
+  const Box = forwardRef<HTMLElement, Sprinkles & BaseComponentType>(
+    ({ className, ...rest }: Sprinkles & BaseComponentType, ref) => {
+      type Rest = Omit<BaseComponentType, 'className'>;
       const { sprinkleProps, otherProps } = extractAtomsFromProps<
         Rest,
         Sprinkles
@@ -50,7 +49,7 @@ export function createComponent<
             sprinklesFn(sprinkleProps),
             className,
           )}
-          {...(otherProps as BaseComponentProps)}
+          {...otherProps}
         ></BaseComponent>
       );
     },
