@@ -12,9 +12,9 @@ export type BaseComponentProps<
   Sprinkles,
   HTMLAttributeExceptions extends string,
   HTMLElement extends Element,
-> = BaseComponentSignature &
-  Sprinkles &
-  HTMLProperties<HTMLAttributeExceptions, HTMLElement>;
+> = Sprinkles &
+  HTMLProperties<HTMLAttributeExceptions, HTMLElement> &
+  BaseComponentSignature;
 
 interface CreateBaseComponentParams<SprinklesFn extends SprinklesFnBase> {
   sprinklesFn: SprinklesFn;
@@ -35,7 +35,8 @@ export function createBaseComponent<
 
   const Box = forwardRef<
     HTMLElement,
-    BaseComponentProps<Sprinkles, HTMLAttributeExceptions, HTMLElement>
+    BaseComponentSignature &
+      BaseComponentProps<Sprinkles, HTMLAttributeExceptions, HTMLElement>
   >(
     (
       {
@@ -43,7 +44,8 @@ export function createBaseComponent<
         children,
         className,
         ...rest
-      }: BaseComponentProps<Sprinkles, HTMLAttributeExceptions, HTMLElement>,
+      }: BaseComponentSignature &
+        BaseComponentProps<Sprinkles, HTMLAttributeExceptions, HTMLElement>,
       ref,
     ) => {
       const { sprinkleProps, otherProps } = extractAtomsFromProps<
