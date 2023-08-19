@@ -6,6 +6,7 @@ import {
   type ForwardedRef,
   type ReactElement,
   createElement,
+  type ForwardRefExoticComponent,
 } from 'react';
 
 import { composeClassNames } from './composeClassNames';
@@ -14,9 +15,7 @@ import { type SprinklesFnBase } from './types';
 
 interface CreateComponentParams<
   TSprinklesFn extends SprinklesFnBase,
-  TElement extends ElementType<{
-    className?: string;
-  }>,
+  TElement extends ElementType,
 > {
   sprinklesFn: TSprinklesFn;
   BaseComponent: TElement;
@@ -26,35 +25,42 @@ interface CreateComponentParams<
 }
 
 export type OldComponentProps<
-  TElement extends ElementType<{
-    className?: string;
-  }>,
-  // TSprinklesFn extends SprinklesFnBase,
+  TElement extends
+    | ElementType<{
+        className?: string;
+      }>
+    | ForwardRefExoticComponent<{ className?: string }>,
   TAttributeOverrides extends string,
 > = Omit<ComponentPropsWithoutRef<TElement>, TAttributeOverrides> & {
   className?: string;
 };
 
 type NewComponentPropsWithoutSprinkles<
-  TElement extends ElementType<{
-    className?: string;
-  }>,
+  TElement extends
+    | ElementType<{
+        className?: string;
+      }>
+    | ForwardRefExoticComponent<{ className?: string }>,
   TAttributeOverrides extends string,
 > = Omit<ComponentPropsWithoutRef<TElement>, TAttributeOverrides>;
 
 export type NewComponentProps<
-  TElement extends ElementType<{
-    className?: string;
-  }>,
+  TElement extends
+    | ElementType<{
+        className?: string;
+      }>
+    | ForwardRefExoticComponent<{ className?: string }>,
   TSprinklesFn extends SprinklesFnBase,
   TAttributeOverrides extends string,
 > = Parameters<TSprinklesFn>[0] &
   NewComponentPropsWithoutSprinkles<TElement, TAttributeOverrides>;
 
 export function createDerivedComponent<
-  TElement extends ElementType<{
-    className?: string;
-  }>,
+  TElement extends
+    | ElementType<{
+        className?: string;
+      }>
+    | ForwardRefExoticComponent<{ className?: string }>,
   TSprinklesFn extends SprinklesFnBase,
   TAttributeOverrides extends string,
 >({
