@@ -6,6 +6,7 @@
     "node": "18"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ]
 }
