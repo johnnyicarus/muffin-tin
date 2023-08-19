@@ -2,9 +2,11 @@ import {
   createBaseComponent,
   type BaseComponentProps,
 } from './createBaseComponent';
-import { createComponent } from './createComponent';
+import {
+  createDerivedComponent,
+  type NewComponentProps,
+} from './createDerivedComponent';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
-import type { BaseComponentSignature } from './types';
 
-export { createBaseComponent, createComponent, extractAtomsFromProps };
-export type { BaseComponentProps, BaseComponentSignature };
+export { createBaseComponent, createDerivedComponent, extractAtomsFromProps };
+export type { BaseComponentProps, NewComponentProps as DerivedComponentProps };

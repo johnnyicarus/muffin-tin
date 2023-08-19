@@ -1,79 +1,66 @@
-import { createElement, forwardRef } from 'react';
-
-import { composeClassNames } from './composeClassNames';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
+import { composeClassNames } from './composeClassNames';
 import {
-  type BaseComponentSignature,
-  type HTMLProperties,
-  type SprinklesFnBase,
-} from './types';
+  type ElementRef,
+  createElement,
+  type ForwardedRef,
+  type ReactElement,
+  forwardRef,
+} from 'react';
+import { type SprinklesFnBase } from './types';
 
-export type BaseComponentProps<
-  Sprinkles,
-  HTMLAttributeExceptions extends string,
-  HTMLElement extends Element,
-> = Sprinkles &
-  HTMLProperties<HTMLAttributeExceptions, HTMLElement> &
-  BaseComponentSignature;
-
-interface CreateBaseComponentParams<SprinklesFn extends SprinklesFnBase> {
-  sprinklesFn: SprinklesFn;
+interface CreateBaseComponentParams<TSprinklesFn extends SprinklesFnBase> {
+  sprinklesFn: TSprinklesFn;
   defaultClassName?: string;
   displayName?: string;
 }
 
+export interface AsProp<TElement extends keyof JSX.IntrinsicElements> {
+  as?: TElement;
+}
+
+export type BaseComponentProps<
+  TElement extends keyof JSX.IntrinsicElements,
+  TSprinklesFn extends SprinklesFnBase,
+  TAttributeOverrides extends string,
+> = AsProp<TElement> &
+  Omit<
+    JSX.IntrinsicElements[TElement],
+    keyof AsProp<TElement> | TAttributeOverrides
+  > &
+  Parameters<TSprinklesFn>[0];
+
 export function createBaseComponent<
-  SprinklesFn extends SprinklesFnBase,
-  HTMLAttributeExceptions extends string,
-  HTMLElement extends Element,
+  TElement extends keyof JSX.IntrinsicElements,
+  TSprinklesFn extends SprinklesFnBase,
+  TAttributeOverrides extends string,
 >({
   sprinklesFn,
   defaultClassName,
   displayName,
-}: CreateBaseComponentParams<SprinklesFn>) {
-  type Sprinkles = Parameters<typeof sprinklesFn>[0];
+}: CreateBaseComponentParams<TSprinklesFn>) {
+  const Component = (
+    props: BaseComponentProps<TElement, TSprinklesFn, TAttributeOverrides>,
+    ref: ForwardedRef<ElementRef<TElement>>,
+  ): ReactElement => {
+    const { sprinkleProps, otherProps } = extractAtomsFromProps<
+      BaseComponentProps<TElement, TSprinklesFn, TAttributeOverrides>,
+      Parameters<TSprinklesFn>[0]
+    >(props, [sprinklesFn]);
+    const { as = 'div', className, ...rest } = otherProps;
 
-  const Box = forwardRef<
-    HTMLElement,
-    BaseComponentSignature &
-      BaseComponentProps<Sprinkles, HTMLAttributeExceptions, HTMLElement>
-  >(
-    (
-      {
-        as = 'div',
-        children,
-        className,
-        ...rest
-      }: BaseComponentSignature &
-        BaseComponentProps<Sprinkles, HTMLAttributeExceptions, HTMLElement>,
+    return createElement(as, {
+      ...rest,
       ref,
-    ) => {
-      const { sprinkleProps, otherProps } = extractAtomsFromProps<
-        Omit<
-          BaseComponentSignature &
-            HTMLProperties<HTMLAttributeExceptions, HTMLElement>,
-          'as' | 'children' | 'className'
-        >,
-        Sprinkles
-      >(rest, [sprinklesFn]);
+      className: composeClassNames(
+        defaultClassName,
+        sprinklesFn(sprinkleProps),
+        className,
+      ),
+    });
+  };
 
-      return createElement(
-        as,
-        {
-          ref,
-          ...otherProps,
-          className: composeClassNames(
-            defaultClassName,
-            sprinklesFn(sprinkleProps),
-            className,
-          ),
-        },
-        children,
-      );
-    },
-  );
+  Component.displayName = displayName || 'MuffinTinBaseComponent';
 
-  Box.displayName = displayName || 'MuffinTinBaseComponent';
-
-  return Box;
+  return forwardRef(Component);
 }
