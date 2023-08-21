@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import {
   Background,
   Background2,
@@ -6,6 +7,7 @@ import {
 import { BadButton, Button } from './components/Button/Button';
 
 function App() {
+  const ref = useRef(null);
   return (
     <>
       {/* Rendered as a <button> */}
@@ -41,6 +43,7 @@ function App() {
         backgroundColor="hotpink"
         color="white"
         type="button"
+        ref={ref}
       >
         Hello
       </Background3>
