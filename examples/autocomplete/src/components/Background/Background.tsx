@@ -63,6 +63,6 @@ export const Background3 = createDerivedComponent<
   sprinklesFn: backgroundSprinkles,
   BaseComponent: Box,
 }) as <TElement extends keyof JSX.IntrinsicElements>(
-  BaseComponentProps: Background3Props<TElement>,
+  props: Background3Props<TElement>,
   ref: ElementRef<TElement>,
 ) => ReactNode;
