@@ -13,7 +13,7 @@ import { composeClassNames } from './composeClassNames';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
 import { type SprinklesFnBase } from './types';
 
-interface CreateComponentParams<
+interface CreateDerivedComponentParams<
   TSprinklesFn extends SprinklesFnBase,
   TElement extends ElementType,
 > {
@@ -24,18 +24,7 @@ interface CreateComponentParams<
   hasClassNameProp?: boolean;
 }
 
-export type OldComponentProps<
-  TElement extends
-    | ElementType<{
-        className?: string;
-      }>
-    | ForwardRefExoticComponent<{ className?: string }>,
-  TAttributeOverrides extends string,
-> = Omit<ComponentPropsWithoutRef<TElement>, TAttributeOverrides> & {
-  className?: string;
-};
-
-type NewComponentPropsWithoutSprinkles<
+type DerivedComponentPropsWithoutSprinkles<
   TElement extends
     | ElementType<{
         className?: string;
@@ -44,7 +33,7 @@ type NewComponentPropsWithoutSprinkles<
   TAttributeOverrides extends string,
 > = Omit<ComponentPropsWithoutRef<TElement>, TAttributeOverrides>;
 
-export type NewComponentProps<
+export type DerivedComponentProps<
   TElement extends
     | ElementType<{
         className?: string;
@@ -53,7 +42,7 @@ export type NewComponentProps<
   TSprinklesFn extends SprinklesFnBase,
   TAttributeOverrides extends string,
 > = Parameters<TSprinklesFn>[0] &
-  NewComponentPropsWithoutSprinkles<TElement, TAttributeOverrides>;
+  DerivedComponentPropsWithoutSprinkles<TElement, TAttributeOverrides>;
 
 export function createDerivedComponent<
   TElement extends
@@ -69,15 +58,15 @@ export function createDerivedComponent<
   defaultClassName,
   displayName,
   hasClassNameProp,
-}: CreateComponentParams<TSprinklesFn, TElement>) {
+}: CreateDerivedComponentParams<TSprinklesFn, TElement>) {
   const Component = (
-    props: NewComponentProps<TElement, TSprinklesFn, TAttributeOverrides>,
+    props: DerivedComponentProps<TElement, TSprinklesFn, TAttributeOverrides>,
     ref: ForwardedRef<ElementRef<TElement>>,
   ): ReactElement => {
     const { sprinkleProps, otherProps } = extractAtomsFromProps<
       // Here we manually add className so that the destructuring
       // on L79 does not complain
-      NewComponentPropsWithoutSprinkles<TElement, TAttributeOverrides> & {
+      DerivedComponentPropsWithoutSprinkles<TElement, TAttributeOverrides> & {
         className?: string;
       },
       Parameters<TSprinklesFn>[0]

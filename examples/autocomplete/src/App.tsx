@@ -7,7 +7,7 @@ import {
 import { BadButton, Button } from './components/Button/Button';
 
 function App() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLButtonElement>(null);
   return (
     <>
       {/* Rendered as a <button> */}

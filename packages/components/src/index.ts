@@ -4,9 +4,9 @@ import {
 } from './createBaseComponent';
 import {
   createDerivedComponent,
-  type NewComponentProps,
+  type DerivedComponentProps,
 } from './createDerivedComponent';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
 
 export { createBaseComponent, createDerivedComponent, extractAtomsFromProps };
-export type { BaseComponentProps, NewComponentProps as DerivedComponentProps };
+export type { BaseComponentProps, DerivedComponentProps };
