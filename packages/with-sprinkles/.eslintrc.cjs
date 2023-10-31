@@ -32,5 +32,6 @@ module.exports = {
       { assertionStyle: 'as', objectLiteralTypeAssertions: 'allow' },
     ],
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
 };

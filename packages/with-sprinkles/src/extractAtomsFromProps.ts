@@ -1,4 +1,4 @@
-import { type SprinklesFnBase } from './types';
+import { type SprinklesFnBase } from './SprinklesFnBase';
 
 export function extractAtomsFromProps<
   NSV extends Record<string, unknown>,
