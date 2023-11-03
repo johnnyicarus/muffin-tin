@@ -14,7 +14,7 @@ export const withSprinkles = <
 >(
   Component: (props: TProps) => ReactNode,
   sprinklesFn: TSprinklesFn,
-  displayName: string,
+  displayName?: string,
   defaultClassName?: string,
   hasClassNameProp?: boolean,
 ): ((props: WithSprinklesProps<TProps, TSprinklesFn>) => ReactNode) => {
