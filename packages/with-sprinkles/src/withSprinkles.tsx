@@ -1,6 +1,6 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
-import { type SprinklesFnBase } from './SprinklesFnBase';
+import type { SprinklesFnBase } from './SprinklesFnBase';
 
 export type WithSprinklesProps<
   TProps,
