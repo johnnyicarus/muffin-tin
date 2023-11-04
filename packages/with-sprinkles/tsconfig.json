@@ -16,7 +16,6 @@
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "noImplicitAny": true,
-    "isolatedModules": true,
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
     /* Strictness */
