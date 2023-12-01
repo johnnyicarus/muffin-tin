@@ -1,6 +1,6 @@
 'use client';
 import { useRef } from 'react';
-import { Box } from '@muffin-tin/box';
+import { Tag as Box } from '@muffin-tin/tag';
 
 export default function BoxPage() {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -9,7 +9,7 @@ export default function BoxPage() {
   return (
     <main>
       <h1>Box Example Page</h1>
-      {/* @ts-expect-error rendered as a div per default, no href attr */}
+      {/* @ts-expect-error rendered as a div per default, so has no href attr */}
       <Box href="/example" />
       <Box as="a" href="/example"></Box>
       <Box as="a" href="/example" ref={linkRef}></Box>

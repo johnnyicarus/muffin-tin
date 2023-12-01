@@ -1,7 +1,7 @@
 import { createBox } from '@butter-cream/box';
 import { createSprinkles } from '@vanilla-extract/sprinkles';
 
-import { mediaQueries, vars } from '../../../tokens/theme.css';
+import { mediaQueries, vars } from './theme.css';
 
 export const boxProperties = createBox<
   keyof typeof vars.spacing.default,
@@ -14,7 +14,7 @@ export const boxProperties = createBox<
   keyof typeof vars.maxWidth
 >({
   spacingScale: vars.spacing,
-  mediaQueries: mediaQueries,
+  mediaQueries,
   defaultMediaQueryKey: 'default',
   zIndexScale: vars.zIndices,
   containerSizeScale: vars.maxWidth,

@@ -1,11 +1,11 @@
 'use client';
 import { useRef } from 'react';
-import { Box as BaseBox } from '@muffin-tin/box';
-import { withSprinkles } from '@muffin-tin/components';
+import { Tag } from '@muffin-tin/tag';
+import { withSprinkles } from '@muffin-tin/with-sprinkles';
 import { Link as BaseLink } from 'react-aria-components';
-import { boxSprinkles } from '../../components/layout/Box/Box.css';
+import { boxSprinkles } from '../../tokens/box.css';
 
-export const Box = withSprinkles(BaseBox, boxSprinkles, 'Box');
+export const Box = withSprinkles(Tag, boxSprinkles, 'Box');
 
 export const Link = withSprinkles(BaseLink, boxSprinkles, 'Link');
 

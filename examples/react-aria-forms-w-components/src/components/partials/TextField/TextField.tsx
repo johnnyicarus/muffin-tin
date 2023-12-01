@@ -10,7 +10,7 @@ export interface TextFieldProps
 // react-aria *components*
 // 1) Reimplement the react-aria component (copy from their GitHub I guess).
 // This is using the hooks as escape hatch, we are not really in Component-land
-// anymore. Also event this humble <Input> component is pretty complex already
+// anymore. Also even this humble <Input> component is pretty complex already
 // 2) Add the sprinkles to the component props, filter them out so you can
 // add them to the className with extractAtomsFromProps (this is what is hinted
 // at below basically)
