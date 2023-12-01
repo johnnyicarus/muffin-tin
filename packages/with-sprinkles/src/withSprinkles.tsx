@@ -1,23 +1,30 @@
 import type { ReactNode } from 'react';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
-import type { SprinklesFnBase } from './SprinklesFnBase';
+
+import type { SprinklesFnBase, WithHocOptions } from '@muffin-tin/core';
+
+export interface WithSprinklesParams<
+  TProps,
+  TSprinklesFn extends SprinklesFnBase,
+> extends WithHocOptions {
+  Component: (props: TProps) => ReactNode;
+  sprinklesFn: TSprinklesFn;
+}
 
 export type WithSprinklesProps<
   TProps,
   TSprinklesFn extends SprinklesFnBase,
 > = Omit<TProps, Parameters<TSprinklesFn>[0]> & Parameters<TSprinklesFn>[0];
 
-export const withSprinkles = <
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  TProps,
-  TSprinklesFn extends SprinklesFnBase,
->(
-  Component: (props: TProps) => ReactNode,
-  sprinklesFn: TSprinklesFn,
-  displayName?: string,
-  defaultClassName?: string,
-  hasClassNameProp?: boolean,
-): ((props: WithSprinklesProps<TProps, TSprinklesFn>) => ReactNode) => {
+export const withSprinkles = <TProps, TSprinklesFn extends SprinklesFnBase>({
+  Component,
+  sprinklesFn,
+  displayName,
+  defaultClassName,
+  hasClassNameProp,
+}: WithSprinklesParams<TProps, TSprinklesFn>): ((
+  props: WithSprinklesProps<TProps, TSprinklesFn>,
+) => ReactNode) => {
   const WithSprinklesComponent = (
     props: WithSprinklesProps<TProps, TSprinklesFn>,
   ) => {
@@ -41,7 +48,6 @@ export const withSprinkles = <
   };
 
   WithSprinklesComponent.displayName = `withSprinkles(${
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     displayName ||
     (
       Component as {

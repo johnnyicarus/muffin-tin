@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     /* Code runs in the DOM */
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react-jsx",
     /* Base Options */
     "esModuleInterop": false,
@@ -29,12 +25,10 @@
     "declaration": true,
     "sourceMap": true,
     "declarationMap": true
-    /* 
+    /*
      * "composite": true fails but we don't
-     * have performance issues yet 
+     * have performance issues yet
      */
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
