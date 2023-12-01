@@ -31,9 +31,9 @@
         "sourceMap": true,
         "declarationMap": true
         /* 
-     * "composite": true fails but we don't
-     * have performance issues yet 
-     */
+         * "composite": true fails but we don't
+         * have performance issues yet 
+         */
     },
     "include": [
         "src"
