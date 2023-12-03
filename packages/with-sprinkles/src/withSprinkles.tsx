@@ -1,7 +1,11 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 import { extractAtomsFromProps } from './extractAtomsFromProps';
 
-import type { SprinklesFnBase, WithHocOptions } from '@muffin-tin/core';
+import {
+  fixedForwardRef,
+  type SprinklesFnBase,
+  type WithHocOptions,
+} from '@muffin-tin/core';
 
 export interface WithSprinklesParams<
   TProps,
@@ -16,7 +20,11 @@ export type WithSprinklesProps<
   TSprinklesFn extends SprinklesFnBase,
 > = Omit<TProps, Parameters<TSprinklesFn>[0]> & Parameters<TSprinklesFn>[0];
 
-export const withSprinkles = <TProps, TSprinklesFn extends SprinklesFnBase>({
+export const withSprinkles = <
+  TProps,
+  TSprinklesFn extends SprinklesFnBase,
+  TRef,
+>({
   Component,
   sprinklesFn,
   displayName,
@@ -27,6 +35,7 @@ export const withSprinkles = <TProps, TSprinklesFn extends SprinklesFnBase>({
 ) => ReactNode) => {
   const WithSprinklesComponent = (
     props: WithSprinklesProps<TProps, TSprinklesFn>,
+    ref: Ref<TRef>,
   ) => {
     const { sprinkleProps, otherProps } = extractAtomsFromProps<
       Omit<TProps, Parameters<TSprinklesFn>[0]>,
@@ -36,6 +45,7 @@ export const withSprinkles = <TProps, TSprinklesFn extends SprinklesFnBase>({
     return (
       <Component
         {...(otherProps as TProps)}
+        ref={ref}
         className={[
           defaultClassName,
           sprinklesFn(sprinkleProps),
@@ -56,5 +66,7 @@ export const withSprinkles = <TProps, TSprinklesFn extends SprinklesFnBase>({
     ).displayName
   })`;
 
-  return WithSprinklesComponent;
+  return fixedForwardRef<TRef, WithSprinklesProps<TProps, TSprinklesFn>>(
+    WithSprinklesComponent,
+  );
 };

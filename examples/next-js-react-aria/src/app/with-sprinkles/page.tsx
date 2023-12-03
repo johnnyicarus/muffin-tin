@@ -9,7 +9,7 @@ export const Box = withSprinkles(Tag, boxSprinkles, 'Box');
 
 export const Link = withSprinkles(BaseLink, boxSprinkles, 'Link');
 
-export default function BoxPage() {
+export default function WithSprinklesPage() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const linkRef = useRef<HTMLAnchorElement>(null);
 
@@ -35,11 +35,11 @@ export default function BoxPage() {
       <Link href="/example" target="_blank" padding={1}>
         Link to nowhere
       </Link>
-      <Link href="/example" target="_blank" padding={1} ref={linkRef}>
+      <Link href="/example" target="_blank" padding={1}>
         Link to nowhere
       </Link>
       {/* @ts-expect-error incorrect ref */}
-      <Link href="/example" target="_blank" padding={1} ref={buttonRef}>
+      <Link href="/example" target="_blank" padding={1}>
         Link to nowhere
       </Link>
     </main>
