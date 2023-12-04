@@ -1,4 +1,4 @@
-# @muffin-tin/tag (1.0.0-alpha)
+# @muffin-tin (1.0.0-alpha)
 
 Helpers for unopinionated [React](https://react.dev) design component libraries with [vanilla-extract](https://vanilla-extract.style/).
 
