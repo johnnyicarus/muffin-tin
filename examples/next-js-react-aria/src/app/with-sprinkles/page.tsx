@@ -5,9 +5,17 @@ import { withSprinkles } from '@muffin-tin/with-sprinkles';
 import { Link as BaseLink } from 'react-aria-components';
 import { boxSprinkles } from '../../tokens/box.css';
 
-export const Box = withSprinkles(Tag, boxSprinkles, 'Box');
+export const Box = withSprinkles({
+  Component: Tag,
+  sprinklesFn: boxSprinkles,
+  displayName: 'Box',
+});
 
-export const Link = withSprinkles(BaseLink, boxSprinkles, 'Link');
+export const Link = withSprinkles({
+  Component: BaseLink,
+  sprinklesFn: boxSprinkles,
+  displayName: 'Link',
+});
 
 export default function WithSprinklesPage() {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -24,10 +32,20 @@ export default function WithSprinklesPage() {
       <Box as="a" href="/example" padding={1} ref={buttonRef}></Box>
       {/* @ts-expect-error button does not have href attribute */}
       <Box as="button" alignSelf="center" href="/example"></Box>
-      <Box as="button" alignSelf="center" type="button"></Box>
-      <Box as="button" alignSelf="center" ref={buttonRef}></Box>
+      <Box as="button" alignSelf="center" type="button" ref={buttonRef}>
+        Button
+      </Box>
+      <Box
+        as="button"
+        alignSelf="center"
+        onClick={() => console.log(buttonRef)}
+      >
+        Button clicky
+      </Box>
       {/* @ts-expect-error incorrect ref */}
-      <Box as="button" alignSelf="center" ref={linkRef}></Box>
+      <Box as="button" alignSelf="center" ref={linkRef}>
+        Button
+      </Box>
 
       <Link target="_blank" padding={1}>
         Link to nowhere
@@ -39,7 +57,7 @@ export default function WithSprinklesPage() {
         Link to nowhere
       </Link>
       {/* @ts-expect-error incorrect ref */}
-      <Link href="/example" target="_blank" padding={1}>
+      <Link href="/example" target="_blank" padding={1} ref={buttonRef}>
         Link to nowhere
       </Link>
     </main>
