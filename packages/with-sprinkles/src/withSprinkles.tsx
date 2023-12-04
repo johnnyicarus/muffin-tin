@@ -2,6 +2,7 @@ import type { ReactNode, Ref } from 'react';
 import { extractAtomsFromProps } from '../../core/src/extractAtomsFromProps';
 
 import {
+  composeClassNames,
   fixedForwardRef,
   type SprinklesFnBase,
   type WithHocOptions,
@@ -47,13 +48,11 @@ export const withSprinkles = <
       <Component
         {...(otherProps as TProps)}
         ref={ref}
-        className={[
+        className={composeClassNames(
           defaultClassName,
           sprinklesFn(sprinkleProps),
           hasClassNameProp ? (otherProps as any).className : undefined,
-        ]
-          .filter((className) => className)
-          .join(' ')}
+        )}
       />
     );
   }
