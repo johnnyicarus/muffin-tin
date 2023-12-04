@@ -32,11 +32,12 @@ export const withSprinkles = <
   hasClassNameProp,
 }: WithSprinklesParams<TProps, TSprinklesFn>): ((
   props: WithSprinklesProps<TProps, TSprinklesFn>,
+  ref: Ref<TRef>,
 ) => ReactNode) => {
-  const WithSprinklesComponent = (
+  function WithSprinklesComponent(
     props: WithSprinklesProps<TProps, TSprinklesFn>,
     ref: Ref<TRef>,
-  ) => {
+  ) {
     const { sprinkleProps, otherProps } = extractAtomsFromProps<
       Omit<TProps, Parameters<TSprinklesFn>[0]>,
       Parameters<TSprinklesFn>[0]
@@ -55,7 +56,7 @@ export const withSprinkles = <
           .join(' ')}
       />
     );
-  };
+  }
 
   WithSprinklesComponent.displayName = `withSprinkles(${
     displayName ||
