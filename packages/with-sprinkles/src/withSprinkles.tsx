@@ -1,5 +1,5 @@
 import type { ReactNode, Ref } from 'react';
-import { extractAtomsFromProps } from './extractAtomsFromProps';
+import { extractAtomsFromProps } from '../../core/src/extractAtomsFromProps';
 
 import {
   fixedForwardRef,
