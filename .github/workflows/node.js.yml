@@ -63,6 +63,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm i --workspaces
+    - run: npm --prefix ./packages/with-sprinkles install
     - run: npm --prefix ./packages/with-sprinkles run build --if-present
     - run: npm --prefix ./packages/with-sprinkles test --if-present
