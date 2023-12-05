@@ -1,2 +1,4 @@
 dist
 .eslintrc.cjs
+babel.config.cjs
+jest.config.cjs
