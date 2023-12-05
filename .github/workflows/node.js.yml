@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci --workspaces
+    - run: npm i --workspaces
     - run: npm run build -w packages/core --if-present
     - run: npm test -w packages/core --if-present
 
@@ -44,7 +44,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci --workspaces
+    - run: npm i --workspaces
     - run: npm run build -w packages/tag --if-present
     - run: npm test -w packages/tag --if-present
 
@@ -63,6 +63,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci --workspaces
+    - run: npm i --workspaces
     - run: npm run build -w packages/with-sprinkles --if-present
     - run: npm test -w packages/with-sprinkles --if-present
