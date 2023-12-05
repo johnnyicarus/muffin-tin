@@ -1,4 +1,4 @@
-import type { SprinklesFnBase } from '@muffin-tin/core';
+import type { SprinklesFnBase } from './SprinklesFnBase';
 
 export function extractAtomsFromProps<
   TOtherProps extends Record<string, any>,
