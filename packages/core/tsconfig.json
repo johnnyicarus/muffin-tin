@@ -21,7 +21,7 @@
     /* Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    /* Transpiling with TypeScript */
+    /* Transpiling with tsup/eslint */
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "noEmit": true,
@@ -29,13 +29,8 @@
     "declaration": true,
     "sourceMap": true,
     "declarationMap": true
-    /* 
-     * "composite": true fails but we don't
-     * have performance issues yet 
-     */
   },
   "include": [
     "src",
-    "../core/src/fixedForwardRef.ts"
   ]
 }

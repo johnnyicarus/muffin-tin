@@ -21,21 +21,16 @@
     /* Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    /* Transpiling with TypeScript */
+    /* Transpiling with tsup/eslint */
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "noEmit": true,
     /* Config for a library in a monorepo */
     "declaration": true,
     "sourceMap": true,
-    "declarationMap": true
-    /*
-     * "composite": true fails but we don't
-     * have performance issues yet
-     */
+    "declarationMap": true,
   },
   "include": [
     "src",
-    "../core/src/extractAtomsFromProps.ts"
   ]
 }
