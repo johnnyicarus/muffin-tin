@@ -51,7 +51,9 @@ export const withSprinkles = <
         className={composeClassNames(
           defaultClassName,
           sprinklesFn(sprinkleProps),
-          hasClassNameProp ? (otherProps as any).className : undefined,
+          hasClassNameProp
+            ? (otherProps as { className?: string }).className
+            : undefined,
         )}
       />
     );
