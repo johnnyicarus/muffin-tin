@@ -15,7 +15,7 @@ const Tag = <TAs extends ElementType>(
   ref: ForwardedRef<any>,
 ) => {
   const { as: Comp = 'div', ...rest } = props;
-  
+
   return <Comp {...rest} ref={ref}></Comp>;
 };
 
