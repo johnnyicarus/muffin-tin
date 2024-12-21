@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     /* Code runs in the DOM */
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "jsx": "react-jsx",
     /* Base Options */
     "esModuleInterop": false,
@@ -27,5 +31,10 @@
     "sourceMap": true,
     "declarationMap": true
   },
-  "include": ["src", "tests"]
+  "include": [
+    "src",
+    "tests",
+    "./vitest.config.ts",
+    "./vitest-setup.ts"
+  ],
 }
