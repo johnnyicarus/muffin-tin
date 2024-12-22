@@ -1,6 +1,6 @@
 {
   "name": "@muffin-tin/tag",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "license": "MIT",
   "files": [
     "dist"
@@ -18,28 +18,28 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc && npm run bundle && cp dist/index.d.ts dist/index.d.cts",
+    "build": "npm run types:check && npm run bundle && cp dist/index.d.ts dist/index.d.cts",
     "bundle": "tsup src/index.ts --format esm,cjs --dts --minify terser --treeshake",
     "lint:check": "eslint \"src/*.{ts,tsx}\"",
     "lint:write": "eslint \"src/*.{ts,tsx}\" --fix",
     "format:check": "prettier --check '*.(ts|tsx|json|js)' 'src/**/*.(ts|tsx|json|js)'",
     "format:write": "prettier --write '*.(ts|tsx|json|js)' 'src/**/*.(ts|tsx|json|js)'",
     "types:check": "tsc",
-    "test": "tsc && vitest"
+    "test": "vitest"
   },
   "dependencies": {
     "@muffin-tin/core": "1.0.0-alpha.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "peerDependencies": {
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "6.6.2",
+    "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.1.0",
     "@testing-library/user-event": "14.5.2",
     "@trivago/prettier-plugin-sort-imports": "^5.2.0",
@@ -52,7 +52,7 @@
     "prettier": "^3.4.2",
     "terser": "5.37.0",
     "tsup": "8.3.5",
-    "typescript": "5.3.3",
+    "typescript": "5.7.2",
     "typescript-eslint": "^8.18.1",
     "vitest": "^2.1.8"
   }

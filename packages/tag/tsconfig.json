@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     /* Code runs in the DOM */
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "jsx": "react-jsx",
     /* Base Options */
     "esModuleInterop": false,
@@ -27,14 +31,14 @@
     "sourceMap": true,
     "declarationMap": true,
     /* Testing types */
-    "types": ["vitest/globals"]
+    "types": [
+      "vitest/globals"
+    ]
   },
   "include": [
     "src",
     "tests",
-    "./vitest.config.ts",
-    "./vitest-setup.ts",
-    "./eslint.config.js",
-    "./prettier.config.js"
+    "./*.js",
+    "./*.ts",
   ]
 }
