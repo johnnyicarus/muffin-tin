@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     /* Code runs in the DOM */
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react-jsx",
     /* Base Options */
     "esModuleInterop": false,
@@ -28,11 +24,9 @@
     /* Config for a library in a monorepo */
     "declaration": true,
     "sourceMap": true,
-    "declarationMap": true
+    "declarationMap": true,
+    /* Testing types */
+    "types": ["vitest/globals"]
   },
-  "include": [
-    "src",
-    "./*.js",
-    "./*.ts",
-  ]
+  "include": ["src", "tests", "./*.js", "./*.ts"]
 }

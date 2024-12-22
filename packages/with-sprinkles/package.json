@@ -1,6 +1,6 @@
 {
   "name": "@muffin-tin/with-sprinkles",
-  "version": "1.0.0-alpha.7",
+  "version": "1.0.0-alpha.8",
   "license": "MIT",
   "files": [
     "dist"
@@ -23,28 +23,38 @@
     "lint:check": "eslint \"src/*.{ts,tsx}\"",
     "lint:write": "eslint \"src/*.{ts,tsx}\" --fix",
     "format:check": "prettier --check '*.(ts|tsx|json|js)' 'src/**/*.(ts|tsx|json|js)'",
-    "format:write": "prettier --write '*.(ts|tsx|json|js)' 'src/**/*.(ts|tsx|json|js)'"
+    "format:write": "prettier --write '*.(ts|tsx|json|js)' 'src/**/*.(ts|tsx|json|js)'",
+    "test": "vitest"
   },
   "dependencies": {
-    "@muffin-tin/core": "1.0.0-alpha.4",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "@muffin-tin/core": "1.0.0-alpha.5",
+    "react": "^19",
+    "react-dom": "^19"
   },
   "peerDependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
+    "@muffin-tin/tag": "1.0.0-alpha.3",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.1.0",
+    "@testing-library/user-event": "14.5.2",
     "@trivago/prettier-plugin-sort-imports": "^5.2.0",
     "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@vanilla-extract/css": "^1.17.0",
+    "@vanilla-extract/sprinkles": "^1.6.3",
+    "@vanilla-extract/vite-plugin": "^4.0.19",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.37.2",
+    "jsdom": "^25.0.1",
     "prettier": "^3.4.2",
     "terser": "5.37.0",
     "tsup": "8.3.5",
-    "typescript": "5.7.2"
+    "typescript": "5.7.2",
+    "vitest": "^2.1.8"
   }
 }

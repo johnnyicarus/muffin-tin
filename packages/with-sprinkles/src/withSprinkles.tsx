@@ -1,12 +1,10 @@
-import type { ReactNode, Ref } from 'react';
-import { extractAtomsFromProps } from '../../core/src/extractAtomsFromProps';
-
 import {
-  composeClassNames,
-  fixedForwardRef,
   type SprinklesFnBase,
   type WithHocOptions,
+  composeClassNames,
+  extractAtomsFromProps,
 } from '@muffin-tin/core';
+import type { ReactNode, Ref } from 'react';
 
 export interface WithSprinklesParams<
   TProps,
@@ -16,6 +14,7 @@ export interface WithSprinklesParams<
   sprinklesFn: TSprinklesFn;
 }
 
+// prettier-ignore
 export type WithSprinklesProps<
   TProps,
   TSprinklesFn extends SprinklesFnBase,
@@ -68,7 +67,5 @@ export const withSprinkles = <
     ).displayName
   })`;
 
-  return fixedForwardRef<TRef, WithSprinklesProps<TProps, TSprinklesFn>>(
-    WithSprinklesComponent,
-  );
+  return WithSprinklesComponent;
 };
