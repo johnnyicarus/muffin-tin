@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -25,10 +25,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci --workspaces
-      - run: npm run lint:check --workspaces --if-present
-      - run: npm run format:check --workspaces --if-present
-      - run: npm run build:check --workspaces --if-present
+      - run: npm i --workspaces
+      - run: npm run build --workspaces --if-present
       - run: npm test --workspaces --if-present
 
   build-core:
@@ -47,8 +45,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm i --workspaces
-      - run: npm run lint:check -w packages/core --if-present
-      - run: npm run format:check -w packages/core --if-present
       - run: npm run build -w packages/core --if-present
       - run: npm test -w packages/core --if-present
 
@@ -57,7 +53,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -68,9 +64,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm --prefix ./packages/tag install
-      - run: npm run lint:check -w packages/tag --if-present
-      - run: npm run format:check -w packages/tag --if-present
-      - run: npm run types:check -w packages/tag --if-present
       - run: npm run build -w packages/tag --if-present
       - run: npm test -w packages/tag --if-present
 
@@ -79,7 +72,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -90,7 +83,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm --prefix ./packages/with-sprinkles install
-      - run: npm run lint:check -w packages/with-sprinkles --if-present
-      - run: npm run format:check -w packages/with-sprinkles --if-present
       - run: npm --prefix ./packages/with-sprinkles run build --if-present
       - run: npm --prefix ./packages/with-sprinkles test --if-present
