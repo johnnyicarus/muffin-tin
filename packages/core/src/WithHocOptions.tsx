@@ -1,5 +1,5 @@
 export interface WithHocOptions {
-  displayName?: string;
   defaultClassName?: string;
+  displayName?: string;
   hasClassNameProp?: boolean;
 }

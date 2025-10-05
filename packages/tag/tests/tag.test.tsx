@@ -1,50 +1,48 @@
-/* eslint-disable react/display-name */
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { type MouseEvent, useRef, useState } from "react";
 
-import { Tag } from '../src/tag';
-import { useRef, type MouseEvent, forwardRef, useState } from 'react';
+import { Tag } from "../src/tag";
 
 type Expect<T extends true> = T;
-type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y
-  ? 1
-  : 2
-  ? true
-  : false;
+type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
+    ? true
+    : false;
 
-test('renders as the correct HTML', async () => {
+test("renders as the correct HTML", async () => {
   // ARRANGE
   render(<Tag>div tag</Tag>);
   render(<Tag as="a">a tag</Tag>);
   render(<Tag as="button">button tag</Tag>);
 
   // ASSERT
-  expect(screen.getByText('div tag')).toMatchInlineSnapshot(`
-    <div>
-      div tag
-    </div>
-  `);
-  expect(screen.getByText('a tag')).toMatchInlineSnapshot(`
-    <a>
-      a tag
-    </a>
-  `);
-  expect(screen.getByText('button tag')).toMatchInlineSnapshot(`
-    <button>
-      button tag
-    </button>
-  `);
+  expect(screen.getByText("div tag")).toMatchInlineSnapshot(`
+      <div>
+        div tag
+      </div>
+    `);
+  expect(screen.getByText("a tag")).toMatchInlineSnapshot(`
+      <a>
+        a tag
+      </a>
+    `);
+  expect(screen.getByText("button tag")).toMatchInlineSnapshot(`
+      <button>
+        button tag
+      </button>
+    `);
 });
 
 const Child = () => {
   return <span>child</span>;
 };
 
-test('renders as the passed in component', async () => {
+test("renders as the passed in component", async () => {
   render(<Tag as={Child}></Tag>);
 
-  expect(screen.getByText('child')).toMatchInlineSnapshot(`
+  expect(screen.getByText("child")).toMatchInlineSnapshot(`
     <span>
       child
     </span>
@@ -78,6 +76,7 @@ const TypeTest = () => {
       <Tag
         as="button"
         // e should be inferred correctly
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         onClick={(e) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           type test = Expect<Equal<typeof e, MouseEvent<HTMLButtonElement>>>;
@@ -86,6 +85,7 @@ const TypeTest = () => {
       <Tag
         as="a"
         // e should be inferred correctly
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         onClick={(e) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           type test = Expect<
@@ -98,14 +98,14 @@ const TypeTest = () => {
   );
 };
 
-const Custom = forwardRef(
-  (
-    props: { requiredProp: boolean },
-    ref: React.ForwardedRef<HTMLAnchorElement>,
-  ) => {
-    return <a ref={ref} />;
-  },
-);
+const Custom = ({
+  ref,
+  ...props
+}: { requiredProp: boolean } & {
+  ref?: React.RefObject<HTMLAnchorElement | null>;
+}) => {
+  return <a ref={ref as any} {...props} />;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TypeTestCustom = () => {
@@ -146,16 +146,16 @@ const PassRefTestApp = () => {
       >
         button
       </button>
-      <div data-testid="result">{hasRef ? 'success' : 'failure'}</div>
+      <div data-testid="result">{hasRef ? "success" : "failure"}</div>
     </>
   );
 };
 
-test('passes a ref correctly', async () => {
+test("passes a ref correctly", async () => {
   render(<PassRefTestApp />);
 
-  await userEvent.click(screen.getByText('button'));
-  await screen.findByTestId('result');
+  await userEvent.click(screen.getByText("button"));
+  await screen.findByTestId("result");
 
-  expect(screen.getByTestId('result')).toHaveTextContent('success');
+  expect(screen.getByTestId("result")).toHaveTextContent("success");
 });

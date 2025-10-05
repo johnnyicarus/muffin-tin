@@ -1,22 +1,15 @@
-import {
-  type ComponentPropsWithRef,
-  type ElementType,
-  type ForwardedRef,
-} from 'react';
-import { fixedForwardRef, type DistributiveOmit } from '@muffin-tin/core';
+import { type DistributiveOmit } from "@muffin-tin/core";
+import { type ComponentProps, type ElementType } from "react";
 
-const Tag = <TAs extends ElementType>(
+export const Tag = <TAs extends ElementType>(
   props: {
     as?: TAs;
   } & DistributiveOmit<
-    ComponentPropsWithRef<ElementType extends TAs ? 'div' : TAs>,
-    'as'
+    ComponentProps<ElementType extends TAs ? "div" : TAs>,
+    "as"
   >,
-  ref: ForwardedRef<any>,
 ) => {
-  const { as: Comp = 'div', ...rest } = props;
-  return <Comp {...rest} ref={ref}></Comp>;
-};
+  const { as: Component = "div", ...rest } = props;
 
-export const _Tag = fixedForwardRef(Tag);
-export { _Tag as Tag };
+  return <Component {...rest} />;
+};
