@@ -1,9 +1,9 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { type MouseEvent, useRef, useState } from 'react';
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { type MouseEvent, useRef, useState } from "react";
 
-import { Tag } from '../src/tag';
+import { Tag } from "../src/tag";
 
 type Expect<T extends true> = T;
 type Equal<X, Y> =
@@ -11,24 +11,24 @@ type Equal<X, Y> =
     ? true
     : false;
 
-test('renders as the correct HTML', async () => {
+test("renders as the correct HTML", async () => {
   // ARRANGE
   render(<Tag>div tag</Tag>);
   render(<Tag as="a">a tag</Tag>);
   render(<Tag as="button">button tag</Tag>);
 
   // ASSERT
-  expect(screen.getByText('div tag')).toMatchInlineSnapshot(`
+  expect(screen.getByText("div tag")).toMatchInlineSnapshot(`
       <div>
         div tag
       </div>
     `);
-  expect(screen.getByText('a tag')).toMatchInlineSnapshot(`
+  expect(screen.getByText("a tag")).toMatchInlineSnapshot(`
       <a>
         a tag
       </a>
     `);
-  expect(screen.getByText('button tag')).toMatchInlineSnapshot(`
+  expect(screen.getByText("button tag")).toMatchInlineSnapshot(`
       <button>
         button tag
       </button>
@@ -39,10 +39,10 @@ const Child = () => {
   return <span>child</span>;
 };
 
-test('renders as the passed in component', async () => {
+test("renders as the passed in component", async () => {
   render(<Tag as={Child}></Tag>);
 
-  expect(screen.getByText('child')).toMatchInlineSnapshot(`
+  expect(screen.getByText("child")).toMatchInlineSnapshot(`
     <span>
       child
     </span>
@@ -146,16 +146,16 @@ const PassRefTestApp = () => {
       >
         button
       </button>
-      <div data-testid="result">{hasRef ? 'success' : 'failure'}</div>
+      <div data-testid="result">{hasRef ? "success" : "failure"}</div>
     </>
   );
 };
 
-test('passes a ref correctly', async () => {
+test("passes a ref correctly", async () => {
   render(<PassRefTestApp />);
 
-  await userEvent.click(screen.getByText('button'));
-  await screen.findByTestId('result');
+  await userEvent.click(screen.getByText("button"));
+  await screen.findByTestId("result");
 
-  expect(screen.getByTestId('result')).toHaveTextContent('success');
+  expect(screen.getByTestId("result")).toHaveTextContent("success");
 });

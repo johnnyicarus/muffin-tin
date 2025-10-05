@@ -1,15 +1,15 @@
-import { type DistributiveOmit } from '@muffin-tin/core';
-import { type ComponentPropsWithRef, type ElementType } from 'react';
+import { type DistributiveOmit } from "@muffin-tin/core";
+import { type ComponentProps, type ElementType } from "react";
 
 export const Tag = <TAs extends ElementType>(
   props: {
     as?: TAs;
   } & DistributiveOmit<
-    ComponentPropsWithRef<ElementType extends TAs ? 'div' : TAs>,
-    'as'
+    ComponentProps<ElementType extends TAs ? "div" : TAs>,
+    "as"
   >,
 ) => {
-  const { as: Comp = 'div', ref, ...rest } = props;
+  const { as: Component = "div", ...rest } = props;
 
-  return <Comp {...rest} ref={ref} />;
+  return <Component {...rest} />;
 };

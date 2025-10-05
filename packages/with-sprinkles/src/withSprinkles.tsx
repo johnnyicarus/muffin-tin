@@ -1,10 +1,11 @@
+import type { ReactNode } from "react";
+
 import {
-  type SprinklesFnBase,
-  type WithHocOptions,
   composeClassNames,
   extractAtomsFromProps,
-} from '@muffin-tin/core';
-import type { ReactNode } from 'react';
+  type SprinklesFnBase,
+  type WithHocOptions,
+} from "@muffin-tin/core";
 
 export interface WithSprinklesParams<
   TProps,
@@ -21,17 +22,17 @@ export type WithSprinklesProps<
 
 export const withSprinkles = <TProps, TSprinklesFn extends SprinklesFnBase>({
   Component,
-  sprinklesFn,
-  displayName,
   defaultClassName,
+  displayName,
   hasClassNameProp,
+  sprinklesFn,
 }: WithSprinklesParams<TProps, TSprinklesFn>): ((
   props: WithSprinklesProps<TProps, TSprinklesFn>,
 ) => ReactNode) => {
   function WithSprinklesComponent(
     props: WithSprinklesProps<TProps, TSprinklesFn>,
   ) {
-    const { sprinkleProps, otherProps } = extractAtomsFromProps<
+    const { otherProps, sprinkleProps } = extractAtomsFromProps<
       Omit<TProps, Parameters<TSprinklesFn>[0]>,
       Parameters<TSprinklesFn>[0]
     >(props, [sprinklesFn]);

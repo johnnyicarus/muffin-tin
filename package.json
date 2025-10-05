@@ -2,11 +2,29 @@
   "name": "@muffin-tin/root",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "engines": {
     "node": ">18"
   },
   "workspaces": [
     "packages/*",
     "examples/*"
-  ]
+  ],
+  "scripts": {
+    "lint:check": "eslint",
+    "lint:write": "eslint --fix",
+    "format:check": "prettier --check '*.(ts|tsx|json|js)' 'packages/*/**/*.(ts|tsx|json|js)'",
+    "format:write": "prettier --write '*.(ts|tsx|json|js)' 'packages/*/**/*.(ts|tsx|json|js)'",
+    "types:check": "tsc"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-perfectionist": "^4.15.0",
+    "eslint-plugin-react": "7.37.5",
+    "prettier": "3.6.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.45.0"
+  }
 }

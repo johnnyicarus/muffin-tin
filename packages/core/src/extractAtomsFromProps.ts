@@ -1,9 +1,11 @@
-import type { SprinklesFnBase } from './SprinklesFnBase';
+import type { SprinklesFnBase } from "./SprinklesFnBase";
 
 export function extractAtomsFromProps<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TOtherProps extends Record<string, any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TSprinklesProps extends Record<string, any>,
->(props: TSprinklesProps & TOtherProps, sprinklesFns: SprinklesFnBase[]) {
+>(props: TOtherProps & TSprinklesProps, sprinklesFns: SprinklesFnBase[]) {
   const sprinkleProps = {} as TSprinklesProps;
   const otherProps = {} as TOtherProps;
 
@@ -16,5 +18,5 @@ export function extractAtomsFromProps<
     }
   }
 
-  return { sprinkleProps, otherProps };
+  return { otherProps, sprinkleProps };
 }
